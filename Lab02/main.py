@@ -90,21 +90,20 @@ print(is_balanced("([)]"))
 print(is_balanced("{[()]}"))
 
 #Zad 5
-def transposition_cipher(text: str, key: int):
-    ans=""
-    for i in range(len(text)):
-        c = text[i]
+def transposition_cipher(text: str, key: int) -> str:
+    if key > len(text):
+        return text
 
-        if c == " ":
-            ans += " "
-        elif (c.isupper()):
-            ans += chr((ord(c) + key - 65) % 26 + 65)
-        else:
-            ans += chr((ord(c) + key - 97) % 26 + 97)
+    result = list(text)
 
-    return ans
+    for i in range(key-1, len(text), key-1):
+        if i + key - 1 < len(text):
+            result[i], result[i + key - 1] = result[i + key - 1], result[i]
 
-text="abc"
+    return ''.join(result)
+
+
+text="abcdefghij"
 print(transposition_cipher(text, 3))
 
 #Zad 6
